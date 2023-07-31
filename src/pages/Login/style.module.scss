@@ -1,0 +1,116 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("/assets/bg-01.jpg");
+  background-size: cover;
+
+  .form {
+    background-color: #ffffff;
+    padding: 5rem 3rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 0.4rem 1rem;
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #a866d4;
+    }
+
+    .description {
+      color: #928f8f;
+    }
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0;
+
+      .input {
+        padding: 0.2rem 0.3rem;
+        border-radius: 0.2rem;
+        color: #a866d4;
+        border: 1px solid #e3e3e3;
+        border-radius: 0.3rem;
+        padding: 1rem;
+        &::placeholder {
+          color: #a9a9a9;
+        }
+      }
+    }
+  }
+  .btnGroup {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+
+    .btnLink {
+      padding-bottom: 1px;
+      border-bottom: 1px solid #928f8f;
+      color: #928f8f;
+    }
+
+    .submitBtn {
+      background: linear-gradient(90deg, #dc49b6, #0396fe);
+      width: 100%;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.4rem;
+      border-radius: 0.5rem;
+      color: #ffffff;
+      cursor: pointer;
+      background-size: 300% 100%;
+      animation: float-bg 10s infinite ease-in-out;
+      transition: 0.3s;
+
+      &:hover {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  .bgImg {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+}
+
+@keyframes float-bg {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 50% 0%;
+  }
+  75% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    .form {
+      width: 100%;
+      padding: 25%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    .form {
+      width: 100%;
+      padding: 10%;
+    }
+  }
+}
