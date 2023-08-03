@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "../../features/auth/asyncActions";
+import { IAppDispatch, IRootState } from "../../app/store";
 
 const Login = () => {
-  const onLogin: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const dispatch = useDispatch<IAppDispatch>();
+  const user = useSelector<
+    IRootState,
+    {
+      userId: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+    }
+  >((state) => state.auth.user);
+
+  useEffect(() => {
+    console.log(user);
+    console.log(localStorage.getItem("token"));
+  }, [user]);
+
+  const [loginData, setLoginData] = useState<{
+    email: string;
+    password: string;
+  }>({ email: "", password: "" });
+
+  const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    dispatch(loginAction(loginData));
+  };
+
+  const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
   return (
     <div className={styles.container}>
-      <form onSubmit={onLogin} className={styles.form}>
+      <form onSubmit={submitHandler} className={styles.form}>
         <h4 className={styles.title}>Welcome Back</h4>
         <p className={styles.description}>
           Log into your account using email and password
@@ -20,6 +49,8 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
+            value={loginData.email}
+            onChange={changeHandler}
           />
         </div>
         <div className={styles.formGroup}>
@@ -29,6 +60,8 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
+            value={loginData.password}
+            onChange={changeHandler}
           />
         </div>
 
