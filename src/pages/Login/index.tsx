@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../features/auth/asyncActions";
-import { IAppDispatch, IRootState } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 
 const Login = () => {
-  const dispatch = useDispatch<IAppDispatch>();
-  const user = useSelector<
-    IRootState,
-    {
-      userId: string;
-      email: string;
-      firstName: string;
-      lastName: string;
-    }
-  >((state) => state.auth.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     console.log(user);
@@ -73,9 +65,10 @@ const Login = () => {
             Login
           </button>
         </div>
+        <a href="/signup" className={styles.toggleAuthLink}>
+          Sign Up
+        </a>
       </form>
-
-      {/* <img className={styles.bgImg} src={BgImg} alt="" /> */}
     </div>
   );
 };

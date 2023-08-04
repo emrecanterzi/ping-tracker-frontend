@@ -7,10 +7,14 @@
   background-size: cover;
 
   .form {
+    position: relative;
+    overflow: hidden;
     background-color: #ffffff;
+    max-width: 450px;
     padding: 5rem 3rem;
     border-radius: 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 0.4rem 1rem;
+
     .title {
       font-size: 1.4rem;
       font-weight: 700;
@@ -36,6 +40,26 @@
         &::placeholder {
           color: #a9a9a9;
         }
+      }
+    }
+    .toggleAuthLink {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      border-radius: 100% 100% 0 0;
+      font-weight: 600;
+      background-color: #dc49b6;
+      box-shadow: 0px -0.4rem 1rem rgba(0, 0, 0, 0.2);
+      transition: 0.4s;
+
+      &:hover {
+        background-color: #007fda;
       }
     }
   }
@@ -101,7 +125,6 @@
   .container {
     .form {
       width: 100%;
-      padding: 25%;
     }
   }
 }
@@ -110,7 +133,7 @@
   .container {
     .form {
       width: 100%;
-      padding: 10%;
+      padding: 20% 10%;
     }
   }
 }
