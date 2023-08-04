@@ -34,6 +34,17 @@ export default function Navbar() {
         </li>
         <li className={styles.menuItem}>
           <Link
+            to={"/signup"}
+            className={[
+              styles.menuLink,
+              location.pathname === "/signup" && styles.active,
+            ].join(" ")}
+          >
+            Sing up
+          </Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link
             to={"/about"}
             className={[
               styles.menuLink,
