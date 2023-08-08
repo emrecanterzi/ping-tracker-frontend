@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./style.module.scss";
 import DashboardLeftBar from "../../components/DashboardLeftBar";
 import { useSearchParams } from "react-router-dom";
+import DashboardDetailsSide from "../../components/DashboardDetailsSide";
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
@@ -11,7 +12,7 @@ const Dashboard = () => {
     <div className={styles.container}>
       <DashboardLeftBar />
 
-      <div>job details - {jobId}</div>
+      <DashboardDetailsSide jobId={jobId} />
     </div>
   );
 };
