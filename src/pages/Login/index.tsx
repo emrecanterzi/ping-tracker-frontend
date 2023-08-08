@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./style.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginAction } from "../../features/auth/asyncActions";
-import { AppDispatch, RootState } from "../../app/store";
+import { AppDispatch } from "../../app/store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    console.log(user);
-    console.log(localStorage.getItem("token"));
-  }, [user]);
+  const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState<{
     email: string;
@@ -20,7 +16,9 @@ const Login = () => {
 
   const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    dispatch(loginAction(loginData));
+    dispatch(loginAction(loginData)).then(() => {
+      navigate("/dashboard");
+    });
   };
 
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
