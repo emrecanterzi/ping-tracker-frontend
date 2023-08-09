@@ -95,10 +95,12 @@ const DashboardDetailsSide = ({ job }: IProps) => {
           <h3 className={styles.statsTitle}>Avg. Response</h3>
           <small className={styles.statsSmall}>(current)</small>
           <p className={styles.info}>
-            {responses.reduce(
-              (acc, response) => acc + response.responseTime,
-              0
-            ) / responses.length}
+            {(
+              responses.reduce(
+                (acc, response) => acc + response.responseTime,
+                0
+              ) / responses.length
+            ).toFixed()}
             ms
           </p>
         </div>
