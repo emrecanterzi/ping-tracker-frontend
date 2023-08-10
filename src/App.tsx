@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Layout from "./components/Layout";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
+import { PrivateRoute } from "./components/PrivateRouter";
 
 function App() {
   return (
@@ -14,7 +15,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={<PrivateRoute element={<Dashboard />} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
