@@ -1,24 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "./style.module.scss";
 import Chart from "react-apexcharts";
-import { IJOB } from "../../features/jobs/jobsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { getResponsesByIdAction } from "../../features/response/asyncActions";
 import { toggleJobActiveAction } from "../../features/jobs/asyncActions";
+import { IResponse } from "../../interfaces/Responce";
+import { IJob } from "../../interfaces/Job";
 
 interface IProps {
-  job: IJOB;
-}
-
-interface IResponse {
-  userId: string;
-  jobId: string;
-  date: string;
-  expectedStatus: number;
-  status: number;
-  maxResponseTime: number;
-  responseTime: number;
+  job: IJob;
 }
 
 const DashboardDetailsSide = ({ job }: IProps) => {

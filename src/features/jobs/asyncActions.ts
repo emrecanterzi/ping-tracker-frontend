@@ -1,32 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IJob } from "../../interfaces/Job";
+import { IServerResponse } from "../../interfaces/ServerResponse";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
-interface IJob {
-  userId: string;
-  jobId: string;
-  title: string;
-  url: string;
-  expectedStatus: number;
-  maxResponseTime: number;
-  delay: string;
-  method: string;
-  isActive: boolean;
-  isDeleted: boolean;
-}
-
-interface IGetJobsActionResponse {
-  success: boolean;
-  data: IJob[];
-}
-
-interface IToggleJobActiveActionResponse {
-  success: boolean;
-  data: IJob;
-}
-
-const getJobsAction = createAsyncThunk<IGetJobsActionResponse>(
+const getJobsAction = createAsyncThunk<IServerResponse<IJob[]>>(
   "getJobsAction",
   async () => {
     const response = await axios.get(API_URL + "/job", {
@@ -38,7 +17,7 @@ const getJobsAction = createAsyncThunk<IGetJobsActionResponse>(
 );
 
 const toggleJobActiveAction = createAsyncThunk<
-  IToggleJobActiveActionResponse,
+  IServerResponse<IJob>,
   { jobId: string; isActive: boolean }
 >("toggleJobActiveAction", async ({ jobId, isActive }) => {
   const response = await axios.post(
