@@ -1,0 +1,112 @@
+.container {
+  padding: 1rem;
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .url {
+    color: #6384eb;
+    font-weight: 600;
+  }
+
+  .actionBtnGroup {
+    button {
+      padding: 0.2rem 0.7rem;
+      color: #ffffff;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .actionBtn {
+      background-color: #6384eb;
+      outline: 1px solid #6384eb;
+
+      &:hover {
+        color: #6384eb;
+        background-color: #ffffff;
+      }
+    }
+    .actionDeleteBtn {
+      background-color: #ea1d2e;
+      outline: 1px solid #ea1d2e;
+
+      &:hover {
+        color: #ea1d2e;
+        background-color: #ffffff;
+      }
+    }
+    :first-child {
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+    :last-child {
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+  }
+
+  .statusResponse {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    background-color: #0e1177;
+    padding: 1rem;
+    border-radius: 0.7rem;
+    margin: 1rem 0;
+
+    span {
+      border-radius: 0.5rem;
+      display: block;
+      padding: 0.8rem 0.3rem;
+
+      &.success {
+        background-color: #6384eb;
+      }
+      &.fail {
+        background-color: #bd2121;
+      }
+    }
+
+    .statusState {
+      color: #ffffff;
+      margin-left: 4rem;
+      padding: 0.4rem 1rem;
+      border-radius: 1rem;
+      &.success {
+        background-color: #6384eb;
+      }
+      &.fail {
+        background-color: #bd2121;
+      }
+    }
+  }
+
+  .statsContainer {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    background-color: #0e1177;
+    padding: 1rem;
+    border-radius: 0.7rem;
+    margin: 1rem 0;
+
+    .statsBox {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      .statsTitle {
+        color: #ffffff;
+        font-size: 1.1rem;
+      }
+      .statsSmall {
+        color: #adabb8;
+      }
+      .info {
+        color: #cccbd4;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ const initialState = {
     lastName: "",
   },
   token: "",
+  loginned: false,
 };
 
 const authSlice = createSlice({
@@ -22,6 +23,7 @@ const authSlice = createSlice({
       state.user.firstName = payload.data.firstName;
       state.user.lastName = payload.data.lastName;
       state.token = payload.token;
+      state.loginned = true;
       localStorage.setItem("token", payload.token);
     });
   },

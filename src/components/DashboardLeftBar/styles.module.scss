@@ -1,0 +1,39 @@
+.container {
+  background-color: #682beb;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 1rem;
+
+  .linkBtn {
+    color: #682beb;
+    background-color: #ffffff;
+    margin: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    box-shadow: #64646f33 0px 7px 29px 0px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #dac3e8;
+    }
+  }
+
+  .createJobBtn {
+    background-color: #682beb;
+    color: #ffffff;
+    outline: 1px solid #ffffff;
+    margin: 0.4rem;
+    padding: 0.5rem;
+    border-radius: 0.6rem;
+    box-shadow: #64646f33 0px 7px 29px 0px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: #682beb;
+      background-color: #ffffff;
+      outline: 1px solid #682beb;
+    }
+  }
+}
