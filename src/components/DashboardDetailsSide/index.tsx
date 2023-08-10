@@ -5,6 +5,7 @@ import { IJOB } from "../../features/jobs/jobsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { getResponsesByIdAction } from "../../features/response/asyncActions";
+import { toggleJobActiveAction } from "../../features/jobs/asyncActions";
 
 interface IProps {
   job: IJOB;
@@ -41,13 +42,21 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     return <div>there is no response</div>;
   }
 
+  const toggleJobStatus: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    dispatch(
+      toggleJobActiveAction({ jobId: job.jobId, isActive: !job.isActive })
+    );
+  };
+
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>{job.title}</h4>
       <p className={styles.url}>{job.url}</p>
 
       <div className={styles.actionBtnGroup}>
-        <button className={styles.actionBtn}>Pause</button>
+        <button className={styles.actionBtn} onClick={toggleJobStatus}>
+          {job.isActive ? "Pause" : "Start"}
+        </button>
         <button className={styles.actionBtn}>Edit</button>
         <button className={styles.actionDeleteBtn}>Delete</button>
       </div>
@@ -69,16 +78,10 @@ const DashboardDetailsSide = ({ job }: IProps) => {
           className={
             styles.statusState +
             " " +
-            (responses[responses.length - 1].status ===
-            responses[responses.length - 1].expectedStatus
-              ? styles.success
-              : styles.fail)
+            (job.isActive ? styles.success : styles.fail)
           }
         >
-          {responses[responses.length - 1].status ===
-          responses[responses.length - 1].expectedStatus
-            ? "UP"
-            : "DOWN"}
+          {job.isActive ? "UP" : "WAIT"}
         </div>
       </div>
 

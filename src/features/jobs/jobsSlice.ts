@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getJobsAction } from "./asyncActions";
+import { getJobsAction, toggleJobActiveAction } from "./asyncActions";
 
 export interface IJOB {
   userId: string;
@@ -29,6 +29,14 @@ const jobsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getJobsAction.fulfilled, (state, { payload }) => {
       state.jobs = payload.data;
+    });
+
+    builder.addCase(toggleJobActiveAction.fulfilled, (state, { payload }) => {
+      const job = state.jobs.find((job) => job.jobId === payload.data.jobId);
+
+      if (job) {
+        job.isActive = payload.data.isActive;
+      }
     });
   },
 });

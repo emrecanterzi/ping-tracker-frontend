@@ -29,7 +29,7 @@ const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const jobId = searchParams.get("jobId");
 
-  if (jobs.length == 0) {
+  if (jobs.length === 0) {
     return <>loading</>;
   }
 
