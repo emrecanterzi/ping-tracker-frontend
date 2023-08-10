@@ -1,18 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getResponsesByIdAction } from "./asyncActions";
+import { IResponse } from "../../interfaces/Responce";
 
 interface IResponseSliceInitialState {
-  responses: {
-    userId: string;
-    jobId: string;
-    date: string;
-    expectedStatus: number;
-    status: number;
-    maxResponseTime: number;
-    responseTime: number;
-  }[];
+  responses: IResponse[];
 }
-
 const initialState: IResponseSliceInitialState = {
   responses: [],
 };

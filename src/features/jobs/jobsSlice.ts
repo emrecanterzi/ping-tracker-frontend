@@ -1,21 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getJobsAction, toggleJobActiveAction } from "./asyncActions";
-
-export interface IJOB {
-  userId: string;
-  jobId: string;
-  title: string;
-  url: string;
-  expectedStatus: number;
-  maxResponseTime: number;
-  delay: string;
-  method: string;
-  isActive: boolean;
-  isDeleted: boolean;
-}
+import { IJob } from "../../interfaces/Job";
 
 interface IJobsSliceInitialState {
-  jobs: IJOB[];
+  jobs: IJob[];
 }
 
 const initialState: IJobsSliceInitialState = {

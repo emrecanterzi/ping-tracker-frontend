@@ -6,21 +6,11 @@ import DashboardDetailsSide from "../../components/DashboardDetailsSide";
 import { getJobsAction } from "../../features/jobs/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
-interface IJOB {
-  userId: string;
-  jobId: string;
-  title: string;
-  url: string;
-  expectedStatus: number;
-  maxResponseTime: number;
-  delay: string;
-  method: string;
-  isActive: boolean;
-  isDeleted: boolean;
-}
+import { IJob } from "../../interfaces/Job";
+
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const jobs = useSelector<RootState, IJOB[]>((state) => state.job.jobs);
+  const jobs = useSelector<RootState, IJob[]>((state) => state.job.jobs);
 
   useEffect(() => {
     dispatch(getJobsAction());
