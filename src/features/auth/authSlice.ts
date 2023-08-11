@@ -1,7 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAction } from "./asyncActions";
+import { getProfileAction, loginAction } from "./asyncActions";
+import { IUser } from "../../interfaces/User";
 
-const initialState = {
+interface IInitialState {
+  user: IUser;
+  token: string;
+  loginned: boolean;
+}
+
+const initialState: IInitialState = {
   user: {
     userId: "",
     email: "",
@@ -25,6 +32,14 @@ const authSlice = createSlice({
       state.token = payload.token;
       state.loginned = true;
       localStorage.setItem("token", payload.token);
+    });
+
+    builder.addCase(getProfileAction.fulfilled, (state, { type, payload }) => {
+      state.user.email = payload.data.email;
+      state.user.firstName = payload.data.firstName;
+      state.user.lastName = payload.data.lastName;
+      state.user.userId = payload.data.userId;
+      state.loginned = true;
     });
   },
 });

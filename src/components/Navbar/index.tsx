@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./style.module.scss";
 import { Link, useLocation } from "react-router-dom";
+import NavbarAuthSide from "./NavbarAuthSide";
 
 export default function Navbar() {
   const location = useLocation();
+
   return (
     <nav className={styles.navbar}>
       <Link to={"/"} className={styles.logo}>
@@ -23,28 +25,6 @@ export default function Navbar() {
         </li>
         <li className={styles.menuItem}>
           <Link
-            to={"/login"}
-            className={[
-              styles.menuLink,
-              location.pathname === "/login" && styles.active,
-            ].join(" ")}
-          >
-            login
-          </Link>
-        </li>
-        <li className={styles.menuItem}>
-          <Link
-            to={"/signup"}
-            className={[
-              styles.menuLink,
-              location.pathname === "/signup" && styles.active,
-            ].join(" ")}
-          >
-            Sing up
-          </Link>
-        </li>
-        <li className={styles.menuItem}>
-          <Link
             to={"/about"}
             className={[
               styles.menuLink,
@@ -54,6 +34,7 @@ export default function Navbar() {
             About
           </Link>
         </li>
+        <NavbarAuthSide location={location} />
       </ul>
     </nav>
   );
