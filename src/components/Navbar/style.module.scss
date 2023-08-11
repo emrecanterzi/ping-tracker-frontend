@@ -44,6 +44,21 @@
         &:hover {
           color: #d6dddf;
         }
+
+        .userCircle {
+          position: relative;
+          &::before {
+            content: "";
+            position: absolute;
+            background-color: #ff0000;
+            z-index: -1;
+            padding: 1rem;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
       }
     }
   }

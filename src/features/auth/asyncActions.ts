@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { IServerResponse } from "../../interfaces/ServerResponse";
+import { IUser } from "../../interfaces/User";
 
 interface ILoginActionProps {
   email: string;
@@ -7,13 +9,7 @@ interface ILoginActionProps {
 }
 interface ILoginActionResponse {
   success: boolean;
-  data: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    userId: string;
-  };
+  data: IUser;
   token: string;
 }
 
@@ -32,4 +28,15 @@ const loginAction = createAsyncThunk<ILoginActionResponse, ILoginActionProps>(
   }
 );
 
-export { loginAction };
+const getProfileAction = createAsyncThunk<IServerResponse<IUser>>(
+  "getProfileAction",
+  async () => {
+    const response = await axios.get(API_URL + "/auth/profile", {
+      withCredentials: true,
+    });
+
+    return response.data;
+  }
+);
+
+export { loginAction, getProfileAction };
