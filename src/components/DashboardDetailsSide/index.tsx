@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./style.module.scss";
-import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { getResponsesByIdAction } from "../../features/response/asyncActions";
 import { toggleJobActiveAction } from "../../features/jobs/asyncActions";
 import { IResponse } from "../../interfaces/Responce";
 import { IJob } from "../../interfaces/Job";
+import ResponseTimeChart from "../ResponseTimeChart";
 
 interface IProps {
   job: IJob;
@@ -100,34 +100,11 @@ const DashboardDetailsSide = ({ job }: IProps) => {
         </div>
       </div>
       <div>
-        <Chart
-          options={{
-            chart: {
-              id: "responsetime",
-            },
-            xaxis: {
-              categories: responses.map((response) =>
-                new Date(response.date).toLocaleTimeString()
-              ),
-              range: 30,
-            },
-            yaxis: {
-              max:
-                Math.max.apply(
-                  null,
-                  responses.slice(-30).map((response) => response.responseTime)
-                ) * 1.05,
-            },
-          }}
-          series={[
-            {
-              name: "responsetime",
-              data: responses.map((response) => response.responseTime),
-            },
-          ]}
-          type="area"
-          width="100%"
-          height={"400"}
+        <ResponseTimeChart
+          responses={responses.map((response) => ({
+            responseTime: response.responseTime,
+            date: response.date,
+          }))}
         />
       </div>
     </div>
