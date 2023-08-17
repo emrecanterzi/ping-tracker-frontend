@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../Navbar/index";
+import Navbar from "../../components/Navbar";
 import autoAnimate from "@formkit/auto-animate";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { getProfileAction } from "../../features/auth/asyncActions";
 
-const Layout = () => {
+const LayoutWithNavbar = () => {
   const parent = useRef(null);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -26,4 +26,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default LayoutWithNavbar;
