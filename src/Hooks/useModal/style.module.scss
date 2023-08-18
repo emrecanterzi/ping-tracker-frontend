@@ -1,0 +1,44 @@
+.container {
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000040;
+  backdrop-filter: blur(4px);
+
+  .content {
+    position: relative;
+    background-color: #ffffff;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .closeModalBtn {
+      cursor: pointer;
+      position: absolute;
+      top: 0.4rem;
+      right: 0.4rem;
+      border: 1px solid #000000;
+      border-radius: 50%;
+      width: 1.2rem;
+      height: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      background-color: #ffffff;
+      transition: 0.3s;
+
+      &:hover {
+        color: #ffffff;
+        background-color: #000000;
+      }
+    }
+  }
+}
