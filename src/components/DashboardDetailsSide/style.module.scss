@@ -48,7 +48,7 @@
     display: flex;
     gap: 0.6rem;
     margin-top: 2rem;
-    background-color: #0e1177;
+    background-color: #eeeeee;
     padding: 1rem;
     border-radius: 0.7rem;
     margin: 1rem 0;
@@ -85,7 +85,7 @@
     justify-content: space-around;
     gap: 0.6rem;
     margin-top: 2rem;
-    background-color: #0e1177;
+    background-color: #eeeeee;
     padding: 1rem;
     border-radius: 0.7rem;
     margin: 1rem 0;
@@ -97,14 +97,14 @@
       flex-direction: column;
 
       .statsTitle {
-        color: #ffffff;
+        color: #505050;
         font-size: 1.1rem;
       }
       .statsSmall {
-        color: #adabb8;
+        color: #919194;
       }
       .info {
-        color: #cccbd4;
+        color: #505050;
         margin-top: 0.5rem;
       }
     }
