@@ -1,12 +1,13 @@
 .container {
-  background-color: #682beb;
+  --primary: #4964b6;
+  background-color: var(--primary);
   display: flex;
   flex-direction: column;
   height: 100vh;
   padding-top: 1rem;
 
   .linkBtn {
-    color: #682beb;
+    color: var(--primary);
     background-color: #ffffff;
     margin: 0.4rem;
     padding: 0.5rem;
@@ -15,12 +16,13 @@
     transition: 0.3s;
 
     &:hover {
-      background-color: #dac3e8;
+      background-color: var(--primary);
+      color: #ffffff;
     }
   }
 
   .createJobBtn {
-    background-color: #682beb;
+    background-color: var(--primary);
     color: #ffffff;
     outline: 1px solid #ffffff;
     margin: 0.4rem;
@@ -31,9 +33,9 @@
     transition: 0.3s;
 
     &:hover {
-      color: #682beb;
+      color: var(--primary);
       background-color: #ffffff;
-      outline: 1px solid #682beb;
+      outline: 1px solid var(--primary);
     }
   }
 }
