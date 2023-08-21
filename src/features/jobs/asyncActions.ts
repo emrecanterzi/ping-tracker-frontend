@@ -61,4 +61,20 @@ const createJobAction = createAsyncThunk<
   }
 );
 
-export { getJobsAction, toggleJobActiveAction, createJobAction };
+const deleteJobAction = createAsyncThunk<
+  IServerResponse<IJob>,
+  { jobId: string }
+>("deleteJobAction", async ({ jobId }) => {
+  const response = await axios.delete(API_URL + "/job/" + jobId, {
+    withCredentials: true,
+  });
+
+  return response.data;
+});
+
+export {
+  getJobsAction,
+  toggleJobActiveAction,
+  createJobAction,
+  deleteJobAction,
+};
