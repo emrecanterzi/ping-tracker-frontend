@@ -29,4 +29,36 @@ const toggleJobActiveAction = createAsyncThunk<
   return response.data;
 });
 
-export { getJobsAction, toggleJobActiveAction };
+const createJobAction = createAsyncThunk<
+  IServerResponse<IJob>,
+  {
+    title: string;
+    url: string;
+    expectedStatus: number;
+    maxResponseTime: number;
+    delay: string;
+    method: string;
+    isActive: boolean;
+  }
+>(
+  "createJobAction",
+  async ({
+    title,
+    url,
+    expectedStatus,
+    maxResponseTime,
+    delay,
+    method,
+    isActive,
+  }) => {
+    const response = await axios.post(
+      API_URL + "/job",
+      { title, url, expectedStatus, maxResponseTime, delay, method, isActive },
+      { withCredentials: true }
+    );
+
+    return response.data;
+  }
+);
+
+export { getJobsAction, toggleJobActiveAction, createJobAction };
