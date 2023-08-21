@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createJobAction,
+  deleteJobAction,
   getJobsAction,
   toggleJobActiveAction,
 } from "./asyncActions";
@@ -30,8 +31,13 @@ const jobsSlice = createSlice({
         job.isActive = payload.data.isActive;
       }
     });
+
     builder.addCase(createJobAction.fulfilled, (state, { payload }) => {
       state.jobs.push(payload.data);
+    });
+
+    builder.addCase(deleteJobAction.fulfilled, (state, { payload }) => {
+      state.jobs = state.jobs.filter((job) => job.jobId !== payload.data.jobId);
     });
   },
 });

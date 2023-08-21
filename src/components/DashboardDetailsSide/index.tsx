@@ -3,7 +3,10 @@ import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { getResponsesByIdAction } from "../../features/response/asyncActions";
-import { toggleJobActiveAction } from "../../features/jobs/asyncActions";
+import {
+  deleteJobAction,
+  toggleJobActiveAction,
+} from "../../features/jobs/asyncActions";
 import { IResponse } from "../../interfaces/Responce";
 import { IJob } from "../../interfaces/Job";
 import ResponseTimeChart from "../ResponseTimeChart";
@@ -39,6 +42,10 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     );
   };
 
+  const onDeleteJob: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    dispatch(deleteJobAction({ jobId: job.jobId }));
+  };
+
   return (
     <div className={styles.container}>
       <h4 className={styles.title}>{job.title}</h4>
@@ -49,7 +56,9 @@ const DashboardDetailsSide = ({ job }: IProps) => {
           {job.isActive ? "Pause" : "Start"}
         </button>
         <button className={styles.actionBtn}>Edit</button>
-        <button className={styles.actionDeleteBtn}>Delete</button>
+        <button className={styles.actionDeleteBtn} onClick={onDeleteJob}>
+          Delete
+        </button>
       </div>
 
       <div className={styles.statusResponse}>
