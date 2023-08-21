@@ -1,0 +1,69 @@
+.container {
+  .form {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+
+      gap: 0.3rem;
+
+      .label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .input:not([type="checkbox"]) {
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        outline: 1px solid #4964b6;
+        color: #4964b6;
+        border: none;
+      }
+      .input[type="checkbox"] {
+        display: none;
+      }
+      .input[type="checkbox"] + .checkboxShowcase {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.8rem;
+        height: 0.8rem;
+        outline: 1px solid #4964b6;
+        margin-right: 0.5rem;
+        border-radius: 50%;
+        transition: 0.3s;
+
+        * {
+          color: white;
+          display: inline;
+          padding: 0.1rem;
+        }
+      }
+
+      .input[type="checkbox"]:checked + .checkboxShowcase {
+        background-color: #4964b6;
+      }
+    }
+    .submitBtn {
+      width: 100%;
+      margin-top: 1rem;
+      border-radius: 0.3rem;
+      outline: 1px solid #4964b6;
+      color: #4964b6;
+      padding: 0.4rem;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        outline: 1px solid white;
+        color: white;
+        background-color: #4964b6;
+      }
+    }
+  }
+}

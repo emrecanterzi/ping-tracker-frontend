@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getJobsAction, toggleJobActiveAction } from "./asyncActions";
+import {
+  createJobAction,
+  getJobsAction,
+  toggleJobActiveAction,
+} from "./asyncActions";
 import { IJob } from "../../interfaces/Job";
 
 interface IJobsSliceInitialState {
@@ -25,6 +29,9 @@ const jobsSlice = createSlice({
       if (job) {
         job.isActive = payload.data.isActive;
       }
+    });
+    builder.addCase(createJobAction.fulfilled, (state, { payload }) => {
+      state.jobs.push(payload.data);
     });
   },
 });

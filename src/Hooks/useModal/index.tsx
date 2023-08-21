@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { X } from "@phosphor-icons/react";
+
+interface IToggleModal {
+  (): void;
+}
 const useModal = (
   content: React.ReactElement
 ): [boolean, () => void, React.ReactElement | null] => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const toggleModal = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const toggleModal: IToggleModal = () => {
     setIsOpen((v) => !v);
   };
 
