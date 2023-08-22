@@ -54,6 +54,43 @@ const createJobAction = createAsyncThunk<
   }
 );
 
+interface IUpdateJobActionProps extends IJobFormElements {
+  jobId: string;
+}
+
+const updateJobAction = createAsyncThunk<
+  IServerResponse<IJob>,
+  IUpdateJobActionProps
+>(
+  "updateJobAction",
+  async ({
+    jobId,
+    delay,
+    expectedStatus,
+    isActive,
+    maxResponseTime,
+    method,
+    title,
+    url,
+  }) => {
+    const response = await axios.post(
+      API_URL + "/job/" + jobId,
+      {
+        title,
+        url,
+        expectedStatus,
+        maxResponseTime,
+        delay,
+        method,
+        isActive,
+      },
+      { withCredentials: true }
+    );
+
+    return response.data;
+  }
+);
+
 const deleteJobAction = createAsyncThunk<
   IServerResponse<IJob>,
   { jobId: string }
@@ -69,5 +106,6 @@ export {
   getJobsAction,
   toggleJobActiveAction,
   createJobAction,
+  updateJobAction,
   deleteJobAction,
 };
