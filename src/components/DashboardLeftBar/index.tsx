@@ -22,16 +22,15 @@ const DashboardLeftBar = ({ jobs }: IProps) => {
     dispatch(createJobAction(job));
   };
 
-  const [isCreateJobFormModalOpen, toggleCreateJobFormModal, content] =
-    useModal(
-      <JobForm onSubmit={onJobCreateHandler} submitBtnTitle="Create Job" />
-    );
+  const [, toggleCreateJobFormModal, content] = useModal(
+    <JobForm onSubmit={onJobCreateHandler} submitBtnTitle="Create Job" />
+  );
 
   return (
     <div className={styles.container}>
       {content}
       {jobs.map((job) => (
-        <Link to={`?jobId=${job.jobId}`}>
+        <Link to={`?jobId=${job.jobId}`} key={job.jobId}>
           <div className={styles.linkBtn}>{job.title}</div>
         </Link>
       ))}
