@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IJob } from "../../interfaces/Job";
 import { IServerResponse } from "../../interfaces/ServerResponse";
+import { IJobFormElements } from "../../interfaces/IJobFormElements";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
@@ -31,15 +32,7 @@ const toggleJobActiveAction = createAsyncThunk<
 
 const createJobAction = createAsyncThunk<
   IServerResponse<IJob>,
-  {
-    title: string;
-    url: string;
-    expectedStatus: number;
-    maxResponseTime: number;
-    delay: string;
-    method: string;
-    isActive: boolean;
-  }
+  IJobFormElements
 >(
   "createJobAction",
   async ({
