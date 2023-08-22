@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import useModal from "../../Hooks/useModal";
-import CreateJobForm from "../CreateJobForm";
+import JobForm from "../JobForm";
 import { createJobAction } from "../../features/jobs/asyncActions";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
@@ -23,7 +23,9 @@ const DashboardLeftBar = ({ jobs }: IProps) => {
   };
 
   const [isCreateJobFormModalOpen, toggleCreateJobFormModal, content] =
-    useModal(<CreateJobForm onSubmit={onJobCreateHandler} />);
+    useModal(
+      <JobForm onSubmit={onJobCreateHandler} submitBtnTitle="Create Job" />
+    );
 
   return (
     <div className={styles.container}>

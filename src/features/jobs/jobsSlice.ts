@@ -4,6 +4,7 @@ import {
   deleteJobAction,
   getJobsAction,
   toggleJobActiveAction,
+  updateJobAction,
 } from "./asyncActions";
 import { IJob } from "../../interfaces/Job";
 
@@ -34,6 +35,12 @@ const jobsSlice = createSlice({
 
     builder.addCase(createJobAction.fulfilled, (state, { payload }) => {
       state.jobs.push(payload.data);
+    });
+
+    builder.addCase(updateJobAction.fulfilled, (state, { payload }) => {
+      state.jobs = state.jobs.map((job) =>
+        job.jobId !== payload.data.jobId ? job : payload.data
+      );
     });
 
     builder.addCase(deleteJobAction.fulfilled, (state, { payload }) => {

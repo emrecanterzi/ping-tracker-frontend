@@ -5,18 +5,24 @@ import { IJobFormElements } from "../../interfaces/IJobFormElements";
 
 interface IProps {
   onSubmit: (job: IJobFormElements) => void;
+  startJob?: IJobFormElements;
+  submitBtnTitle: string;
 }
 
-const CreateJobForm = ({ onSubmit }: IProps) => {
-  const [job, setJob] = useState<IJobFormElements>({
-    title: "",
-    url: "",
-    expectedStatus: 200,
-    maxResponseTime: 500,
-    delay: "3_SEC",
-    method: "",
-    isActive: true,
-  });
+const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
+  const [job, setJob] = useState<IJobFormElements>(
+    startJob?.title
+      ? startJob
+      : {
+          title: "",
+          url: "",
+          expectedStatus: 200,
+          maxResponseTime: 500,
+          delay: "3_SEC",
+          method: "",
+          isActive: true,
+        }
+  );
 
   const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -135,10 +141,10 @@ const CreateJobForm = ({ onSubmit }: IProps) => {
           </label>
         </div>
 
-        <button className={styles.submitBtn}>Create Job</button>
+        <button className={styles.submitBtn}>{submitBtnTitle}</button>
       </form>
     </div>
   );
 };
 
-export default CreateJobForm;
+export default JobForm;

@@ -6,10 +6,14 @@ import { getResponsesByIdAction } from "../../features/response/asyncActions";
 import {
   deleteJobAction,
   toggleJobActiveAction,
+  updateJobAction,
 } from "../../features/jobs/asyncActions";
 import { IResponse } from "../../interfaces/Responce";
 import { IJob } from "../../interfaces/Job";
 import ResponseTimeChart from "../ResponseTimeChart";
+import useModal from "../../Hooks/useModal";
+import JobForm from "../JobForm";
+import { IJobFormElements } from "../../interfaces/IJobFormElements";
 
 interface IProps {
   job: IJob;
@@ -32,6 +36,18 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     };
   }, [dispatch, job.jobId]);
 
+  const onJobEditHandle = (updatedJob: IJobFormElements) => {
+    dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
+  };
+
+  const [, toggleEditModal, EditJobModal] = useModal(
+    <JobForm
+      onSubmit={onJobEditHandle}
+      startJob={job}
+      submitBtnTitle="Update Job"
+    />
+  );
+
   if (responses.length === 0) {
     return <div>there is no response</div>;
   }
@@ -48,6 +64,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
 
   return (
     <div className={styles.container}>
+      {EditJobModal}
       <h4 className={styles.title}>{job.title}</h4>
       <p className={styles.url}>{job.url}</p>
 
@@ -55,7 +72,9 @@ const DashboardDetailsSide = ({ job }: IProps) => {
         <button className={styles.actionBtn} onClick={toggleJobStatus}>
           {job.isActive ? "Pause" : "Start"}
         </button>
-        <button className={styles.actionBtn}>Edit</button>
+        <button className={styles.actionBtn} onClick={toggleEditModal}>
+          Edit
+        </button>
         <button className={styles.actionDeleteBtn} onClick={onDeleteJob}>
           Delete
         </button>
