@@ -3,6 +3,10 @@ import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import useModal from "../../Hooks/useModal";
 import CreateJobForm from "../CreateJobForm";
+import { createJobAction } from "../../features/jobs/asyncActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store";
+import { IJobFormElements } from "../../interfaces/IJobFormElements";
 
 interface IProps {
   jobs: {
@@ -12,8 +16,14 @@ interface IProps {
 }
 
 const DashboardLeftBar = ({ jobs }: IProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onJobCreateHandler = (job: IJobFormElements) => {
+    dispatch(createJobAction(job));
+  };
+
   const [isCreateJobFormModalOpen, toggleCreateJobFormModal, content] =
-    useModal(<CreateJobForm />);
+    useModal(<CreateJobForm onSubmit={onJobCreateHandler} />);
 
   return (
     <div className={styles.container}>

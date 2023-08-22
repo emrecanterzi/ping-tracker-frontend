@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { Check } from "@phosphor-icons/react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { createJobAction } from "../../features/jobs/asyncActions";
+import { IJobFormElements } from "../../interfaces/IJobFormElements";
 
-const CreateJobForm = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const [job, setJob] = useState<{
-    title: string;
-    url: string;
-    expectedStatus: number;
-    maxResponseTime: number;
-    delay: string;
-    method: string;
-    isActive: boolean;
-  }>({
+interface IProps {
+  onSubmit: (job: IJobFormElements) => void;
+}
+
+const CreateJobForm = ({ onSubmit }: IProps) => {
+  const [job, setJob] = useState<IJobFormElements>({
     title: "",
     url: "",
     expectedStatus: 200,
@@ -25,9 +18,9 @@ const CreateJobForm = () => {
     isActive: true,
   });
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    dispatch(createJobAction(job));
+    onSubmit(job);
   };
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -40,7 +33,7 @@ const CreateJobForm = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmit}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
         <div className={styles.formGroup}>
           <label htmlFor="title" className={styles.label}>
             Title
