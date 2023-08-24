@@ -14,6 +14,7 @@ import ResponseTimeChart from "../ResponseTimeChart";
 import useModal from "../../Hooks/useModal";
 import JobForm from "../JobForm";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
+import ResponseStats from "../ResponseStats";
 
 interface IProps {
   job: IJob;
@@ -47,10 +48,6 @@ const DashboardDetailsSide = ({ job }: IProps) => {
       submitBtnTitle="Update Job"
     />
   );
-
-  if (responses.length === 0) {
-    return <div>there is no response</div>;
-  }
 
   const toggleJobStatus: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(
@@ -104,29 +101,23 @@ const DashboardDetailsSide = ({ job }: IProps) => {
         </div>
       </div>
 
-      <div className={styles.statsContainer}>
-        <div className={styles.statsBox}>
-          <h3 className={styles.statsTitle}>Response</h3>
-          <small className={styles.statsSmall}>(current)</small>
-          <p className={styles.info}>
-            {responses[responses.length - 1].responseTime} ms
-          </p>
-        </div>
-
-        <div className={styles.statsBox}>
-          <h3 className={styles.statsTitle}>Avg. Response</h3>
-          <small className={styles.statsSmall}>(current)</small>
-          <p className={styles.info}>
-            {(
-              responses.reduce(
-                (acc, response) => acc + response.responseTime,
-                0
-              ) / responses.length
-            ).toFixed()}
-            ms
-          </p>
-        </div>
-      </div>
+      <ResponseStats
+        responseTime={
+          responses.length > 0
+            ? responses[responses.length - 1].responseTime
+            : NaN
+        }
+        responseTimeAvg={
+          responses.length > 0
+            ? (
+                responses.reduce(
+                  (acc, response) => acc + response.responseTime,
+                  0
+                ) / responses.length
+              ).toFixed()
+            : NaN
+        }
+      />
       <div>
         <ResponseTimeChart
           responses={responses.map((response) => ({
