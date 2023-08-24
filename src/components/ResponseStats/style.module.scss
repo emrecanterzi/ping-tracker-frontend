@@ -1,0 +1,29 @@
+.statsContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.6rem;
+  margin-top: 2rem;
+  background-color: #eeeeee;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  margin: 1rem 0;
+
+  .statsBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .statsTitle {
+      color: #505050;
+      font-size: 1.1rem;
+    }
+    .statsSmall {
+      color: #919194;
+    }
+    .info {
+      color: #505050;
+      margin-top: 0.5rem;
+    }
+  }
+}
