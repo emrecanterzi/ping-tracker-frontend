@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
+import { useNavigate } from "react-router-dom";
+import { signUpAction } from "../../features/auth/asyncActions";
 
 const SignUp = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const [signUpData, setSignUpData] = useState<{
     firstName: string;
@@ -15,9 +18,13 @@ const SignUp = () => {
 
   const submitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    dispatch(signUpAction(signUpData)).then((res) => {
+      navigate("/dashboard");
+    });
   };
 
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    console.log(e.target.value);
     setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
   };
 
@@ -35,7 +42,7 @@ const SignUp = () => {
             type="text"
             id="firstName"
             name="firstName"
-            value={signUpData.email}
+            value={signUpData.firstName}
             onChange={changeHandler}
           />
         </div>
@@ -46,7 +53,7 @@ const SignUp = () => {
             type="text"
             id="lastName"
             name="lastName"
-            value={signUpData.email}
+            value={signUpData.lastName}
             onChange={changeHandler}
           />
         </div>

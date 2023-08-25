@@ -7,7 +7,7 @@ interface ILoginActionProps {
   email: string;
   password: string;
 }
-interface ILoginActionResponse {
+interface IAuthActionsResponse {
   success: boolean;
   data: IUser;
   token: string;
@@ -15,12 +15,31 @@ interface ILoginActionResponse {
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
 
-const loginAction = createAsyncThunk<ILoginActionResponse, ILoginActionProps>(
+const loginAction = createAsyncThunk<IAuthActionsResponse, ILoginActionProps>(
   "loginAction",
   async ({ email, password }) => {
     const response = await axios.post(
       API_URL + "/auth/login",
       { email, password },
+      { withCredentials: true }
+    );
+
+    return response.data;
+  }
+);
+
+interface ISignUpActionProps {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+const signUpAction = createAsyncThunk<IAuthActionsResponse, ISignUpActionProps>(
+  "signUpAction",
+  async ({ email, password, firstName, lastName }) => {
+    const response = await axios.post(
+      API_URL + "/auth/register",
+      { email, password, firstName, lastName },
       { withCredentials: true }
     );
 
@@ -39,4 +58,4 @@ const getProfileAction = createAsyncThunk<IServerResponse<IUser>>(
   }
 );
 
-export { loginAction, getProfileAction };
+export { loginAction, getProfileAction, signUpAction };
