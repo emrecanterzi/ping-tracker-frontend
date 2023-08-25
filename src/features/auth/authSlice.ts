@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfileAction, loginAction } from "./asyncActions";
+import { getProfileAction, loginAction, signUpAction } from "./asyncActions";
 import { IUser } from "../../interfaces/User";
 
 interface IInitialState {
@@ -25,6 +25,16 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(loginAction.fulfilled, (state, { type, payload }) => {
+      state.user.userId = payload.data.userId;
+      state.user.email = payload.data.email;
+      state.user.firstName = payload.data.firstName;
+      state.user.lastName = payload.data.lastName;
+      state.token = payload.token;
+      state.loginned = true;
+      localStorage.setItem("token", payload.token);
+    });
+
+    builder.addCase(signUpAction.fulfilled, (state, { type, payload }) => {
       state.user.userId = payload.data.userId;
       state.user.email = payload.data.email;
       state.user.firstName = payload.data.firstName;
