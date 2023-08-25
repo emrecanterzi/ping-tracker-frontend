@@ -28,6 +28,7 @@
         color: white;
         text-decoration: none;
         position: relative;
+        cursor: pointer;
         &.active {
           &::before {
             content: "";

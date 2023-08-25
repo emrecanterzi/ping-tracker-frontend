@@ -1,15 +1,18 @@
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
-import { Link, Location } from "react-router-dom";
-import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Location, useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../../app/store";
 import { IUser } from "../../interfaces/User";
 import styles from "./style.module.scss";
+import { logoutAction } from "../../features/auth/asyncActions";
 
 interface IProps {
   location: Location;
 }
 
 const NavbarAuthSide = memo(({ location }: IProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const { user, loginned } = useSelector<
     RootState,
     { user: IUser; loginned: boolean }
@@ -28,6 +31,12 @@ const NavbarAuthSide = memo(({ location }: IProps) => {
           .join("");
   };
 
+  const logOut = () => {
+    dispatch(logoutAction()).then(() => {
+      navigate("/login");
+    });
+  };
+
   if (loginned) {
     return (
       <>
@@ -41,6 +50,11 @@ const NavbarAuthSide = memo(({ location }: IProps) => {
           >
             Dashboard
           </Link>
+        </li>
+        <li className={styles.menuItem}>
+          <button className={styles.menuLink} onClick={logOut}>
+            Logout
+          </button>
         </li>
         <li className={styles.menuItem}>
           <Link

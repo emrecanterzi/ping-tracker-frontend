@@ -58,4 +58,19 @@ const getProfileAction = createAsyncThunk<IServerResponse<IUser>>(
   }
 );
 
-export { loginAction, getProfileAction, signUpAction };
+const logoutAction = createAsyncThunk<IServerResponse<string>>(
+  "logoutAction",
+  async () => {
+    const response = await axios.post(
+      API_URL + "/auth/logout",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.data;
+  }
+);
+
+export { loginAction, getProfileAction, signUpAction, logoutAction };
