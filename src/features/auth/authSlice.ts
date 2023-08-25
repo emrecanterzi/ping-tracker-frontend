@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfileAction, loginAction, signUpAction } from "./asyncActions";
+import {
+  getProfileAction,
+  loginAction,
+  logoutAction,
+  signUpAction,
+} from "./asyncActions";
 import { IUser } from "../../interfaces/User";
 
 interface IInitialState {
@@ -32,6 +37,16 @@ const authSlice = createSlice({
       state.token = payload.token;
       state.loginned = true;
       localStorage.setItem("token", payload.token);
+    });
+
+    builder.addCase(logoutAction.fulfilled, (state, { type, payload }) => {
+      state.user.userId = "";
+      state.user.email = "";
+      state.user.firstName = "";
+      state.user.lastName = "";
+      state.token = "";
+      state.loginned = false;
+      localStorage.removeItem("token");
     });
 
     builder.addCase(signUpAction.fulfilled, (state, { type, payload }) => {
