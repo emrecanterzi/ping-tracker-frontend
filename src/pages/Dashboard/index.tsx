@@ -7,6 +7,7 @@ import { getJobsAction } from "../../features/jobs/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { IJob } from "../../interfaces/Job";
+import EmptyJobHolder from "../../components/EmptyJobHolder";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,19 +20,19 @@ const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const jobId = searchParams.get("jobId");
 
-  if (jobs.length === 0) {
-    return <>loading</>;
-  }
-
   return (
     <div className={styles.container}>
       <DashboardLeftBar
         jobs={jobs.map((job) => ({ title: job.title, jobId: job.jobId }))}
       />
 
-      <DashboardDetailsSide
-        job={jobs.find((job) => job.jobId === jobId) || jobs[0]}
-      />
+      {jobs.length > 0 ? (
+        <DashboardDetailsSide
+          job={jobs.find((job) => job.jobId === jobId) || jobs[0]}
+        />
+      ) : (
+        <EmptyJobHolder />
+      )}
     </div>
   );
 };
