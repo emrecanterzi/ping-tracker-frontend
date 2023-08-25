@@ -15,6 +15,19 @@ const NavbarAuthSide = memo(({ location }: IProps) => {
     { user: IUser; loginned: boolean }
   >((state) => state.auth);
 
+  const renderUserAvatarName = (): string => {
+    return user.firstName?.split(" ").length === 1
+      ? user.firstName
+          ?.split(" ")
+          .concat(user.lastName)
+          .map((name) => name[0].toUpperCase())
+          .join("")
+      : user.firstName
+          ?.split(" ")
+          .map((name) => name[0].toUpperCase())
+          .join("");
+  };
+
   if (loginned) {
     return (
       <>
@@ -38,9 +51,7 @@ const NavbarAuthSide = memo(({ location }: IProps) => {
             ].join(" ")}
           >
             {/* // ! There will be a panel to open here or directly go to profile page */}
-            <span className={styles.userCircle}>
-              {user.firstName.split(" ").map((name) => name[0].toUpperCase())}
-            </span>
+            <span className={styles.userCircle}>{renderUserAvatarName()}</span>
           </Link>
         </li>
       </>
