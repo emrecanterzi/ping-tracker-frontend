@@ -14,6 +14,16 @@ const useModal = (
     setIsOpen((v) => !v);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.height = "unset";
+      document.body.style.overflow = "unset";
+    }
+  }, [isOpen]);
+
   const Modal = isOpen ? (
     <div className={styles.container} onClick={toggleModal}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
