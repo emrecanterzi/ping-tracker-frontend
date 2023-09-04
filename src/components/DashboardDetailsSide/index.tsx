@@ -15,6 +15,8 @@ import useModal from "../../Hooks/useModal";
 import JobForm from "../JobForm";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
 import ResponseStats from "../ResponseStats";
+import { useSocket } from "../../Hooks/useSocket";
+import { addResponse } from "../../features/response/responseSlice";
 
 interface IProps {
   job: IJob;
@@ -25,15 +27,22 @@ const DashboardDetailsSide = ({ job }: IProps) => {
   const responses = useSelector<RootState, IResponse[]>(
     (state) => state.response.responses
   );
+  const [socket] = useSocket();
+
+  const onUpdate = (data: IResponse) => {
+    console.log(data.jobId);
+    if (data.jobId === job.jobId) {
+      dispatch(addResponse(data));
+    }
+  };
 
   useEffect(() => {
     dispatch(getResponsesByIdAction({ jobId: job.jobId }));
-    const interval = setInterval(() => {
-      dispatch(getResponsesByIdAction({ jobId: job.jobId }));
-    }, 3000);
+
+    socket?.on("update", onUpdate);
 
     return () => {
-      clearInterval(interval);
+      socket?.off("update", onUpdate);
     };
   }, [dispatch, job.jobId]);
 

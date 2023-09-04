@@ -6,22 +6,25 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import { PrivateRoute } from "./components/PrivateRouter";
 import LayoutWithNavbar from "./Layouts/LayoutWithNavbar";
+import { SocketProvider, useSocket } from "./Hooks/useSocket";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<LayoutWithNavbar />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route
-            path="/dashboard"
-            element={<PrivateRoute element={<Dashboard />} />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <SocketProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<LayoutWithNavbar />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/dashboard"
+              element={<PrivateRoute element={<Dashboard />} />}
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </SocketProvider>
   );
 }
 
