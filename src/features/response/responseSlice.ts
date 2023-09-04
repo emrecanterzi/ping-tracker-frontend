@@ -12,7 +12,14 @@ const initialState: IResponseSliceInitialState = {
 const responseSlice = createSlice({
   name: "responseSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    addResponse: (
+      state,
+      { type, payload }: { type: string; payload: IResponse }
+    ) => {
+      state.responses.push(payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getResponsesByIdAction.fulfilled, (state, { payload }) => {
       state.responses = payload.data;
@@ -20,6 +27,6 @@ const responseSlice = createSlice({
   },
 });
 
-export const {} = responseSlice.actions;
+export const { addResponse } = responseSlice.actions;
 
 export default responseSlice.reducer;
