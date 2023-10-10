@@ -46,10 +46,6 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     };
   }, [dispatch, job.jobId]);
 
-  const onJobEditHandle = (updatedJob: IJobFormElements) => {
-    dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
-  };
-
   const [, toggleEditModal, EditJobModal] = useModal(
     <JobForm
       onSubmit={onJobEditHandle}
@@ -57,6 +53,11 @@ const DashboardDetailsSide = ({ job }: IProps) => {
       submitBtnTitle="Update Job"
     />
   );
+
+  function onJobEditHandle(updatedJob: IJobFormElements) {
+    dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
+    toggleEditModal();
+  }
 
   const toggleJobStatus: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     dispatch(

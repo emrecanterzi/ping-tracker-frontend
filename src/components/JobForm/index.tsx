@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./style.module.scss";
 import { Check } from "@phosphor-icons/react";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
+import ReactJson, { InteractionProps } from "react-json-view";
 
 interface IProps {
   onSubmit: (job: IJobFormElements) => void;
@@ -21,6 +22,8 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
           delay: "3_SEC",
           method: "",
           isActive: true,
+          requestBody: {},
+          requestHeaders: {},
         }
   );
 
@@ -35,6 +38,10 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
     } else {
       setJob({ ...job, [e.target.name]: e.target.value });
     }
+  };
+
+  const onObjectChange = (e: InteractionProps, key: string) => {
+    setJob({ ...job, [key]: e.updated_src });
   };
 
   return (
@@ -122,6 +129,36 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
             onChange={onChange}
             className={styles.input}
           />
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="requestBody" className={styles.label}>
+            Request Body
+          </label>
+          <div className={styles.input}>
+            <ReactJson
+              name={null}
+              src={job.requestBody || {}}
+              onDelete={(e) => onObjectChange(e, "requestBody")}
+              onEdit={(e) => onObjectChange(e, "requestBody")}
+              onAdd={(e) => onObjectChange(e, "requestBody")}
+            />
+          </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label htmlFor="requestHeaders" className={styles.label}>
+            Request Body
+          </label>
+          <div className={styles.input}>
+            <ReactJson
+              name={null}
+              src={job.requestHeaders || {}}
+              onDelete={(e) => onObjectChange(e, "requestHeaders")}
+              onEdit={(e) => onObjectChange(e, "requestHeaders")}
+              onAdd={(e) => onObjectChange(e, "requestHeaders")}
+            />
+          </div>
         </div>
 
         <div className={styles.formGroup}>

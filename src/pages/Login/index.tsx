@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../features/auth/asyncActions";
-import { AppDispatch } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const isLogined = useSelector<RootState>((state) => state.auth.loginned);
+
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogined) {
+      navigate("/dashboard");
+    }
+  }, [isLogined, navigate]);
 
   const [loginData, setLoginData] = useState<{
     email: string;
