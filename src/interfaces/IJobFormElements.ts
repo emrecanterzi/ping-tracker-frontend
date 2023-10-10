@@ -6,4 +6,6 @@ export interface IJobFormElements {
   delay: string;
   method: string;
   isActive: boolean;
+  requestBody?: object;
+  requestHeaders?: object;
 }

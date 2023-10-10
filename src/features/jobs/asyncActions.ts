@@ -43,10 +43,22 @@ const createJobAction = createAsyncThunk<
     delay,
     method,
     isActive,
+    requestBody,
+    requestHeaders,
   }) => {
     const response = await axios.post(
       API_URL + "/job",
-      { title, url, expectedStatus, maxResponseTime, delay, method, isActive },
+      {
+        title,
+        url,
+        expectedStatus,
+        maxResponseTime,
+        delay,
+        method,
+        isActive,
+        requestBody,
+        requestHeaders,
+      },
       { withCredentials: true }
     );
 
@@ -72,6 +84,8 @@ const updateJobAction = createAsyncThunk<
     method,
     title,
     url,
+    requestBody,
+    requestHeaders,
   }) => {
     const response = await axios.post(
       API_URL + "/job/" + jobId,
@@ -83,6 +97,8 @@ const updateJobAction = createAsyncThunk<
         delay,
         method,
         isActive,
+        requestBody,
+        requestHeaders,
       },
       { withCredentials: true }
     );

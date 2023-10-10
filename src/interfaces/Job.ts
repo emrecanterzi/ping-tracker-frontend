@@ -9,4 +9,6 @@ export interface IJob {
   method: string;
   isActive: boolean;
   isDeleted: boolean;
+  requestBody?: object;
+  requestHeaders?: object;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { X } from "@phosphor-icons/react";
 
@@ -11,18 +11,15 @@ const useModal = (
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleModal: IToggleModal = () => {
-    setIsOpen((v) => !v);
-  };
-
-  useEffect(() => {
     if (isOpen) {
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
+    } else {
       document.body.style.height = "100vh";
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.height = "unset";
-      document.body.style.overflow = "unset";
     }
-  }, [isOpen]);
+    setIsOpen((v) => !v);
+  };
 
   const Modal = isOpen ? (
     <div className={styles.container} onClick={toggleModal}>

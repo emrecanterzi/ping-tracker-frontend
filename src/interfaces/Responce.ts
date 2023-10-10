@@ -6,4 +6,6 @@ export interface IResponse {
   status: number;
   maxResponseTime: number;
   responseTime: number;
+  requestBody?: object;
+  requestHeaders?: object;
 }
