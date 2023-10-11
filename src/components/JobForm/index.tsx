@@ -148,7 +148,7 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
 
         <div className={styles.formGroup}>
           <label htmlFor="requestHeaders" className={styles.label}>
-            Request Body
+            Request Headers
           </label>
           <div className={styles.input}>
             <ReactJson
