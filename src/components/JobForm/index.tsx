@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { Check } from "@phosphor-icons/react";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
