@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
@@ -11,7 +11,6 @@ import {
 import { IResponse } from "../../interfaces/Responce";
 import { IJob } from "../../interfaces/Job";
 import ResponseTimeChart from "../ResponseTimeChart";
-import useModal from "../../Hooks/useModal";
 import JobForm from "../JobForm";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
 import ResponseStats from "../ResponseStats";
@@ -23,6 +22,7 @@ interface IProps {
 }
 
 const DashboardDetailsSide = ({ job }: IProps) => {
+  const containerRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch<AppDispatch>();
   const responses = useSelector<RootState, IResponse[]>(
     (state) => state.response.responses
@@ -46,17 +46,8 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     };
   }, [dispatch, job.jobId]);
 
-  const [, toggleEditModal, EditJobModal] = useModal(
-    <JobForm
-      onSubmit={onJobEditHandle}
-      startJob={job}
-      submitBtnTitle="Update Job"
-    />
-  );
-
   function onJobEditHandle(updatedJob: IJobFormElements) {
     dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
-    toggleEditModal();
   }
 
   const toggleJobStatus: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -69,71 +60,95 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     dispatch(deleteJobAction({ jobId: job.jobId }));
   };
 
+  const [isFormOpen, setFormOpen] = useState(false);
+
+  const onEdit = () => {
+    setFormOpen((isFormOpen) => !isFormOpen);
+  };
+
   return (
-    <div className={styles.container}>
-      {EditJobModal}
-      <h4 className={styles.title}>{job.title}</h4>
-      <p className={styles.url}>{job.url}</p>
+    <div
+      className={[styles.container, isFormOpen ? styles.active : null].join(
+        " "
+      )}
+      ref={containerRef}
+    >
+      <div>
+        <h4 className={styles.title}>{job.title}</h4>
+        <p className={styles.url}>{job.url}</p>
 
-      <div className={styles.actionBtnGroup}>
-        <button className={styles.actionBtn} onClick={toggleJobStatus}>
-          {job.isActive ? "Pause" : "Start"}
-        </button>
-        <button className={styles.actionBtn} onClick={toggleEditModal}>
-          Edit
-        </button>
-        <button className={styles.actionDeleteBtn} onClick={onDeleteJob}>
-          Delete
-        </button>
-      </div>
+        <div className={styles.actionBtnGroup}>
+          <button className={styles.actionBtn} onClick={toggleJobStatus}>
+            {job.isActive ? "Pause" : "Start"}
+          </button>
+          <button className={styles.actionBtn} onClick={onEdit}>
+            Edit
+          </button>
+          <button className={styles.actionDeleteBtn} onClick={onDeleteJob}>
+            Delete
+          </button>
+        </div>
 
-      <div className={styles.statusResponse}>
-        {responses.slice(-30).map((response) => (
-          <span
-            key={response.date}
+        <div className={styles.statusResponse}>
+          {responses.slice(-30).map((response) => (
+            <span
+              key={response.date}
+              className={
+                response.status === response.expectedStatus
+                  ? styles.success
+                  : styles.fail
+              }
+              title={"statusCode: " + response.status}
+            ></span>
+          ))}
+
+          <div
             className={
-              response.status === response.expectedStatus
-                ? styles.success
-                : styles.fail
+              styles.statusState +
+              " " +
+              (job.isActive ? styles.success : styles.fail)
             }
-            title={"statusCode: " + response.status}
-          ></span>
-        ))}
+          >
+            {job.isActive ? "UP" : "WAIT"}
+          </div>
+        </div>
 
-        <div
-          className={
-            styles.statusState +
-            " " +
-            (job.isActive ? styles.success : styles.fail)
+        <ResponseStats
+          responseTime={
+            responses.length > 0
+              ? responses[responses.length - 1].responseTime
+              : NaN
           }
-        >
-          {job.isActive ? "UP" : "WAIT"}
+          responseTimeAvg={
+            responses.length > 0
+              ? (
+                  responses.reduce(
+                    (acc, response) => acc + response.responseTime,
+                    0
+                  ) / responses.length
+                ).toFixed()
+              : NaN
+          }
+        />
+        <div>
+          <ResponseTimeChart
+            responses={responses.map((response) => ({
+              responseTime: response.responseTime,
+              date: response.date,
+            }))}
+          />
         </div>
       </div>
-
-      <ResponseStats
-        responseTime={
-          responses.length > 0
-            ? responses[responses.length - 1].responseTime
-            : NaN
-        }
-        responseTimeAvg={
-          responses.length > 0
-            ? (
-                responses.reduce(
-                  (acc, response) => acc + response.responseTime,
-                  0
-                ) / responses.length
-              ).toFixed()
-            : NaN
-        }
-      />
-      <div>
-        <ResponseTimeChart
-          responses={responses.map((response) => ({
-            responseTime: response.responseTime,
-            date: response.date,
-          }))}
+      <div
+        className={[
+          styles.formContainer,
+          isFormOpen ? styles.active : null,
+        ].join(" ")}
+      >
+        <JobForm
+          onSubmit={onJobEditHandle}
+          startJob={job}
+          submitBtnTitle="Update Job"
         />
       </div>
     </div>
