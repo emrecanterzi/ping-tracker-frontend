@@ -1,0 +1,28 @@
+.panel {
+  position: absolute;
+  z-index: 100000;
+  background-color: #ffffffed;
+  padding: 0.6rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .hr {
+    width: 100%;
+    height: 1px;
+    background-color: #4964b6;
+  }
+
+  .downloadBtn {
+    color: #4964b6;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #4964b6;
+      color: #fff;
+    }
+  }
+}

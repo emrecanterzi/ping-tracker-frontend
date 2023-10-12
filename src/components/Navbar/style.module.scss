@@ -11,6 +11,16 @@
   padding: 10px;
   z-index: 20;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  transition: 0.3s;
+  transform-origin: top center;
+
+  &.close {
+    transform: rotateX(-90deg);
+  }
+
+  &.open {
+    transform: rotateX(0deg);
+  }
 
   .logo {
     font-size: 24px;

@@ -132,11 +132,13 @@ const DashboardDetailsSide = ({ job }: IProps) => {
         />
         <div>
           <ResponseTimeChart
-            responses={responses.map((response) => ({
-              responseTime: response.responseTime,
-              date: response.date,
-            }))}
-            isFormOpen={isFormOpen}
+            responses={responses
+              .map((response) => ({
+                responseTime: response.responseTime,
+                date: response.date,
+              }))
+              .slice(responses.length - 30, responses.length)}
+            jobTitle={job.title}
           />
         </div>
       </div>

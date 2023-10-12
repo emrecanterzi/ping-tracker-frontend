@@ -5,6 +5,8 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 1rem;
+  position: sticky;
+  top: 0;
 
   .linkBtn {
     color: var(--primary);
