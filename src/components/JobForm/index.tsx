@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import { Check } from "@phosphor-icons/react";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
@@ -26,6 +26,10 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
           requestHeaders: {},
         }
   );
+
+  useEffect(() => {
+    if (startJob?.title) setJob(startJob);
+  }, [startJob]);
 
   const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();

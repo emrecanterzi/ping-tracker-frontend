@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
@@ -29,15 +29,12 @@ const DashboardDetailsSide = ({ job }: IProps) => {
   );
   const [socket] = useSocket();
 
-  const onUpdate = useCallback(
-    (data: IResponse) => {
-      console.log(data.jobId);
-      if (data.jobId === job.jobId) {
-        dispatch(addResponse(data));
-      }
-    },
-    [dispatch, job.jobId]
-  );
+  const onUpdate = (data: IResponse) => {
+    console.log(data.jobId);
+    if (data.jobId === job.jobId) {
+      dispatch(addResponse(data));
+    }
+  };
 
   useEffect(() => {
     dispatch(getResponsesByIdAction({ jobId: job.jobId }));
@@ -47,7 +44,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     return () => {
       socket?.off("update", onUpdate);
     };
-  }, [dispatch, job.jobId, onUpdate, socket]);
+  }, [dispatch, job.jobId, socket]);
 
   function onJobEditHandle(updatedJob: IJobFormElements) {
     dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
@@ -76,7 +73,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
       )}
       ref={containerRef}
     >
-      <div>
+      <div style={{ transition: ".3s" }} className={styles.detailsContainer}>
         <h4 className={styles.title}>{job.title}</h4>
         <p className={styles.url}>{job.url}</p>
 
@@ -139,6 +136,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
               responseTime: response.responseTime,
               date: response.date,
             }))}
+            isFormOpen={isFormOpen}
           />
         </div>
       </div>

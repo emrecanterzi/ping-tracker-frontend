@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import ReactApexChart from "react-apexcharts";
 import Chart from "react-apexcharts";
 
 interface IProps {
   responses: { responseTime: number; date: string }[];
+  isFormOpen: boolean;
 }
 
-const ResponseTimeChart = ({ responses }: IProps) => {
+const ResponseTimeChart = ({ responses, isFormOpen }: IProps) => {
   return (
     <Chart
       options={{
         chart: {
           id: "responsetime",
+          toolbar: {
+            show: !isFormOpen,
+          },
         },
+
         xaxis: {
           categories: responses.map((response) =>
             new Date(response.date).toLocaleTimeString()
