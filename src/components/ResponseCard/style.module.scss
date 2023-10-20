@@ -1,0 +1,28 @@
+.card {
+  background-color: #eeeeee;
+  padding: 1rem 2rem;
+  margin: 0.3rem;
+  border-radius: 0.625rem;
+
+  display: flex;
+  justify-content: space-between;
+  .cardBody {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .statusState {
+      display: block;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+
+      &.success {
+        background-color: #6384eb;
+      }
+      &.fail {
+        background-color: #bd2121;
+      }
+    }
+  }
+}

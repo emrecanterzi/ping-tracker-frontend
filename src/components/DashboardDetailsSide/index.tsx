@@ -16,6 +16,7 @@ import { IJobFormElements } from "../../interfaces/IJobFormElements";
 import ResponseStats from "../ResponseStats";
 import { useSocket } from "../../Hooks/useSocket";
 import { addResponse } from "../../features/response/responseSlice";
+import ResponseCardContainer from "../ResponseCardContainer";
 
 interface IProps {
   job: IJob;
@@ -139,6 +140,13 @@ const DashboardDetailsSide = ({ job }: IProps) => {
               }))
               .slice(responses.length - 30, responses.length)}
             jobTitle={job.title}
+          />
+        </div>
+
+        <div>
+          <ResponseCardContainer
+            title={job.title}
+            responses={responses.slice(responses.length - 30, responses.length)}
           />
         </div>
       </div>
