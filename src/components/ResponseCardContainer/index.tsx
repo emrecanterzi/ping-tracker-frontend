@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { IResponse } from "../../interfaces/Responce";
 import ResponseCard from "../ResponseCard";
+import autoAnimate from "@formkit/auto-animate";
 
 interface IProps {
   responses: IResponse[];
@@ -8,8 +9,13 @@ interface IProps {
 }
 
 const ResponseCardContainer = ({ responses, title }: IProps) => {
+  const parentRef = useRef(null);
+
+  useEffect(() => {
+    if (parentRef.current) autoAnimate(parentRef.current);
+  }, [parentRef]);
   return (
-    <div>
+    <div ref={parentRef}>
       <h3>{title} Responses</h3>
 
       {responses
@@ -19,7 +25,7 @@ const ResponseCardContainer = ({ responses, title }: IProps) => {
             new Date(response1.date).getTime()
         )
         .map((response) => (
-          <ResponseCard response={response} />
+          <ResponseCard key={response._id} response={response} />
         ))}
     </div>
   );

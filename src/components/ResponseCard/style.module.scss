@@ -4,25 +4,38 @@
   margin: 0.3rem;
   border-radius: 0.625rem;
 
-  display: flex;
-  justify-content: space-between;
   .cardBody {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
 
-    .statusState {
-      display: block;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 50%;
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
 
-      &.success {
-        background-color: #6384eb;
-      }
-      &.fail {
-        background-color: #bd2121;
+      .statusState {
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+
+        &.success {
+          background-color: #6384eb;
+        }
+        &.fail {
+          background-color: #bd2121;
+        }
       }
     }
+  }
+  .collapse {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    transition: 0.3s;
+    margin: 0.5rem 0;
   }
 }
