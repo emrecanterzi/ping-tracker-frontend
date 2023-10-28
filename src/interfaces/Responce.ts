@@ -1,4 +1,5 @@
 export interface IResponse {
+  _id: string;
   userId: string;
   jobId: string;
   date: string;
@@ -8,4 +9,6 @@ export interface IResponse {
   responseTime: number;
   requestBody?: object;
   requestHeaders?: object;
+  responseBody?: object;
+  responseHeaders?: object;
 }

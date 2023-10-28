@@ -4,88 +4,92 @@
   display: grid;
   grid-template-columns: 100% 0%;
   transition: 0.3s;
-  gap: 1rem;
-  max-width: 100%;
+  gap: 2rem;
+  min-width: 100%;
 
   &.active {
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 75% 25%;
   }
 
-  .title {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
+  .detailsContainer {
+    max-width: 100%;
 
-  .url {
-    color: #6384eb;
-    font-weight: 600;
-  }
-
-  .actionBtnGroup {
-    button {
-      padding: 0.2rem 0.7rem;
-      color: #ffffff;
-      transition: 0.2s;
-      cursor: pointer;
+    .title {
+      font-size: 1.2rem;
+      font-weight: 600;
     }
-    .actionBtn {
-      background-color: #6384eb;
-      outline: 1px solid #6384eb;
 
-      &:hover {
-        color: #6384eb;
-        background-color: #ffffff;
+    .url {
+      color: #6384eb;
+      font-weight: 600;
+    }
+
+    .actionBtnGroup {
+      button {
+        padding: 0.2rem 0.7rem;
+        color: #ffffff;
+        transition: 0.2s;
+        cursor: pointer;
       }
-    }
-    .actionDeleteBtn {
-      background-color: #ea1d2e;
-      outline: 1px solid #ea1d2e;
-
-      &:hover {
-        color: #ea1d2e;
-        background-color: #ffffff;
-      }
-    }
-    :first-child {
-      border-radius: 0.5rem 0 0 0.5rem;
-    }
-    :last-child {
-      border-radius: 0 0.5rem 0.5rem 0;
-    }
-  }
-
-  .statusResponse {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 2rem;
-    background-color: #eeeeee;
-    padding: 1rem;
-    border-radius: 0.7rem;
-    margin: 1rem 0;
-
-    span {
-      border-radius: 0.5rem;
-      display: block;
-      padding: 0.8rem 0.3rem;
-
-      &.success {
+      .actionBtn {
         background-color: #6384eb;
+        outline: 1px solid #6384eb;
+
+        &:hover {
+          color: #6384eb;
+          background-color: #ffffff;
+        }
       }
-      &.fail {
-        background-color: #bd2121;
+      .actionDeleteBtn {
+        background-color: #ea1d2e;
+        outline: 1px solid #ea1d2e;
+
+        &:hover {
+          color: #ea1d2e;
+          background-color: #ffffff;
+        }
+      }
+      :first-child {
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
+      :last-child {
+        border-radius: 0 0.5rem 0.5rem 0;
       }
     }
 
-    .statusState {
-      color: #ffffff;
-      margin-left: 4rem;
-      padding: 0.4rem 1rem;
-      border-radius: 1rem;
-      &.success {
-        background-color: #6384eb;
+    .statusResponse {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      background-color: #eeeeee;
+      padding: 1rem;
+      border-radius: 0.7rem;
+      margin: 1rem 0;
+
+      span {
+        border-radius: 0.5rem;
+        display: block;
+        padding: 0.8rem 0.3rem;
+
+        &.success {
+          background-color: #6384eb;
+        }
+        &.fail {
+          background-color: #bd2121;
+        }
       }
-      &.fail {
-        background-color: #bd2121;
+
+      .statusState {
+        color: #ffffff;
+        margin-left: 4rem;
+        padding: 0.4rem 1rem;
+        border-radius: 1rem;
+        &.success {
+          background-color: #6384eb;
+        }
+        &.fail {
+          background-color: #bd2121;
+        }
       }
     }
   }
@@ -94,9 +98,9 @@
     opacity: 0;
     transition: 0.3s;
 
+    border-left: 1px solid #6384eb;
+
     &.active {
-      opacity: 1 !important;
-      border-left: 1px solid #6384eb;
       padding: 1rem;
       opacity: 1;
     }
