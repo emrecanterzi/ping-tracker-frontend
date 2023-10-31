@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import { PrivateRoute } from "./components/PrivateRouter";
 import LayoutWithNavbar from "./Layouts/LayoutWithNavbar";
 import { SocketProvider, useSocket } from "./Hooks/useSocket";
+import "react-calendar/dist/Calendar.css";
 
 function App() {
   return (

@@ -17,12 +17,19 @@ import ResponseStats from "../ResponseStats";
 import { useSocket } from "../../Hooks/useSocket";
 import { addResponse } from "../../features/response/responseSlice";
 import ResponseCardContainer from "../ResponseCardContainer";
+import Calendar from "react-calendar";
+import { LooseValue, Range, Value } from "react-calendar/dist/cjs/shared/types";
 
 interface IProps {
   job: IJob;
 }
 
 const DashboardDetailsSide = ({ job }: IProps) => {
+  const [date, setDate] = useState<null | LooseValue>([
+    new Date(Date.now() - 1000 * 60 * 60 * 24 * 30),
+    new Date(),
+  ]);
+  console.log(date);
   const containerRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch<AppDispatch>();
   const responses = useSelector<RootState, IResponse[]>(
@@ -47,6 +54,8 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     };
   }, [dispatch, job.jobId, socket]);
 
+  useEffect(() => {}, [date]);
+
   function onJobEditHandle(updatedJob: IJobFormElements) {
     dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
   }
@@ -65,6 +74,10 @@ const DashboardDetailsSide = ({ job }: IProps) => {
 
   const onEdit = () => {
     setFormOpen((isFormOpen) => !isFormOpen);
+  };
+
+  const onSelectedDateChanged = (date: Value) => {
+    setDate(date);
   };
 
   return (
@@ -88,6 +101,15 @@ const DashboardDetailsSide = ({ job }: IProps) => {
           <button className={styles.actionDeleteBtn} onClick={onDeleteJob}>
             Delete
           </button>
+        </div>
+        <div>
+          <Calendar
+            onChange={onSelectedDateChanged}
+            selectRange={true}
+            value={date}
+            returnValue="range"
+            maxDate={new Date()}
+          />
         </div>
 
         <div className={styles.statusResponse}>
