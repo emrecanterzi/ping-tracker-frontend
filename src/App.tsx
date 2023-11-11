@@ -6,8 +6,7 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import { PrivateRoute } from "./components/PrivateRouter";
 import LayoutWithNavbar from "./Layouts/LayoutWithNavbar";
-import { SocketProvider, useSocket } from "./Hooks/useSocket";
-import "react-calendar/dist/Calendar.css";
+import { SocketProvider } from "./Hooks/useSocket";
 
 function App() {
   return (

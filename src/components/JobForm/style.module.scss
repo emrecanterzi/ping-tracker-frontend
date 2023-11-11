@@ -1,4 +1,11 @@
 .container {
+  width: 100%;
+  .formTitle {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
   .form {
     display: flex;
     flex-direction: column;

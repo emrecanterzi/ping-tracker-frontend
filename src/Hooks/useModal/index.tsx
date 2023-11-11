@@ -13,7 +13,7 @@ const useModal = (
   const toggleModal: IToggleModal = () => {
     if (isOpen) {
       document.body.style.height = "auto";
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "revert-layer";
     } else {
       document.body.style.height = "100vh";
       document.body.style.overflow = "hidden";

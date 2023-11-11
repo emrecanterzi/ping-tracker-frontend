@@ -4,9 +4,13 @@ import { IResponse } from "../../interfaces/Responce";
 
 interface IResponseSliceInitialState {
   responses: IResponse[];
+  startDate: number;
+  endDate: number;
 }
 const initialState: IResponseSliceInitialState = {
   responses: [],
+  startDate: Date.now() - 1000 * 60 * 60 * 24 * 7,
+  endDate: Date.now(),
 };
 
 const responseSlice = createSlice({
@@ -19,6 +23,16 @@ const responseSlice = createSlice({
     ) => {
       state.responses.push(payload);
     },
+    setDateFilters: (
+      state,
+      {
+        type,
+        payload,
+      }: { type: string; payload: { startDate: number; endDate: number } }
+    ) => {
+      state.startDate = payload.startDate;
+      state.endDate = payload.endDate;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getResponsesByIdAction.fulfilled, (state, { payload }) => {
@@ -27,6 +41,6 @@ const responseSlice = createSlice({
   },
 });
 
-export const { addResponse } = responseSlice.actions;
+export const { addResponse, setDateFilters } = responseSlice.actions;
 
 export default responseSlice.reducer;
