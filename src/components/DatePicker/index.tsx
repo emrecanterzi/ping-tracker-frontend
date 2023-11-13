@@ -4,17 +4,22 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRangePicker, RangeKeyDict } from "react-date-range";
 import useModal from "../../Hooks/useModal";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
 import { setDateFilters } from "../../features/response/responseSlice";
 
 const DatePicker = () => {
+  const { startDate, endDate } = useSelector<
+    RootState,
+    { startDate: number; endDate: number }
+  >((state) => state.response);
+
   const [dates, setDates] = useState<{
     startDate: Date | undefined;
     endDate: Date | undefined;
   }>({
-    startDate: new Date("2023-11-5"),
-    endDate: new Date("2023-11-11"),
+    startDate: new Date(startDate),
+    endDate: new Date(endDate),
   });
   const dispatch = useDispatch<AppDispatch>();
 
