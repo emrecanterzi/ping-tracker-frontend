@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
@@ -36,12 +36,15 @@ const DashboardDetailsSide = ({ job }: IProps) => {
   >((state) => state.response);
   const [socket] = useSocket();
 
-  const onUpdate = (data: IResponse) => {
-    console.log(data.jobId);
-    if (data.jobId === job.jobId) {
-      dispatch(addResponse(data));
-    }
-  };
+  const onUpdate = useCallback(
+    (data: IResponse) => {
+      console.log(data.jobId);
+      if (data.jobId === job.jobId) {
+        dispatch(addResponse(data));
+      }
+    },
+    [dispatch, job.jobId]
+  );
 
   useEffect(() => {
     dispatch(getResponsesByIdAction({ jobId: job.jobId, startDate, endDate }));
@@ -51,7 +54,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
     return () => {
       socket?.off("update", onUpdate);
     };
-  }, [dispatch, job.jobId, socket, startDate, endDate]);
+  }, [dispatch, job.jobId, socket, startDate, endDate, onUpdate]);
 
   function onJobEditHandle(updatedJob: IJobFormElements) {
     dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));

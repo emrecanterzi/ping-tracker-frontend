@@ -44,7 +44,7 @@ const DatePicker = () => {
     return () => {};
   }, [dates, dispatch]);
 
-  const [_, toggleModal, content] = useModal(
+  const [, toggleModal, content] = useModal(
     <DateRangePicker
       ranges={[
         {
