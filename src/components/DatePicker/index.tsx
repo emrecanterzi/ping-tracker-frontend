@@ -7,7 +7,7 @@ import useModal from "../../Hooks/useModal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { setDateFilters } from "../../features/response/responseSlice";
-
+import { Calendar } from "@phosphor-icons/react";
 const DatePicker = () => {
   const { startDate, endDate } = useSelector<
     RootState,
@@ -65,8 +65,10 @@ const DatePicker = () => {
         onClick={() => {
           toggleModal();
         }}
+        className={styles.toggleBtn}
       >
-        open
+        <Calendar size={24} />
+        Change Date
       </button>
     </div>
   );

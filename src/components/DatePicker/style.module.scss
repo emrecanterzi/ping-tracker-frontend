@@ -1,3 +1,22 @@
 .container {
   z-index: 1000000;
+
+  .toggleBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.4rem 0;
+    padding: 0.3rem 0.5rem;
+    color: #ffffff;
+    outline: 1px solid #ffffff;
+    background-color: #6384eb;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      color: #6384eb;
+      outline: 1px solid #6384eb;
+      background-color: #ffffff;
+    }
+  }
 }
