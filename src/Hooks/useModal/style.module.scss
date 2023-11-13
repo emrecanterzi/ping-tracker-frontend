@@ -15,12 +15,11 @@
     background-color: #ffffff;
     border-radius: 0.4rem;
     padding: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     box-shadow: 0 0 20px rgb(0, 0, 0, 0.3);
-    min-width: 400px;
+    min-width: 450px;
     box-sizing: border-box;
+    max-height: 80vh;
+    overflow-y: auto;
 
     .closeModalBtn {
       cursor: pointer;
