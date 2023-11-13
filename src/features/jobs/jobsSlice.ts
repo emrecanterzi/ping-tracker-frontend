@@ -49,6 +49,6 @@ const jobsSlice = createSlice({
   },
 });
 
-export const {} = jobsSlice.actions;
+// export const {} = jobsSlice.actions;
 
 export default jobsSlice.reducer;

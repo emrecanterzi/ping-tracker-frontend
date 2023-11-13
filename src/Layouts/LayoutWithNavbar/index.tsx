@@ -16,7 +16,7 @@ const LayoutWithNavbar = () => {
 
   useEffect(() => {
     dispatch(getProfileAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div ref={parent}>
