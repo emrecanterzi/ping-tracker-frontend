@@ -17,6 +17,7 @@ import ResponseStats from "../ResponseStats";
 import { useSocket } from "../../Hooks/useSocket";
 import { addResponse } from "../../features/response/responseSlice";
 import ResponseCardContainer from "../ResponseCardContainer";
+import DatePicker from "../DatePicker";
 
 interface IProps {
   job: IJob;
@@ -25,9 +26,14 @@ interface IProps {
 const DashboardDetailsSide = ({ job }: IProps) => {
   const containerRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const responses = useSelector<RootState, IResponse[]>(
-    (state) => state.response.responses
-  );
+  const { responses, startDate, endDate } = useSelector<
+    RootState,
+    {
+      responses: IResponse[];
+      startDate: number;
+      endDate: number;
+    }
+  >((state) => state.response);
   const [socket] = useSocket();
 
   const onUpdate = (data: IResponse) => {
@@ -38,14 +44,14 @@ const DashboardDetailsSide = ({ job }: IProps) => {
   };
 
   useEffect(() => {
-    dispatch(getResponsesByIdAction({ jobId: job.jobId }));
+    dispatch(getResponsesByIdAction({ jobId: job.jobId, startDate, endDate }));
 
     socket?.on("update", onUpdate);
 
     return () => {
       socket?.off("update", onUpdate);
     };
-  }, [dispatch, job.jobId, socket]);
+  }, [dispatch, job.jobId, socket, startDate, endDate]);
 
   function onJobEditHandle(updatedJob: IJobFormElements) {
     dispatch(updateJobAction({ ...updatedJob, jobId: job.jobId }));
@@ -89,6 +95,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
             Delete
           </button>
         </div>
+        <DatePicker />
 
         <div className={styles.statusResponse}>
           {responses.slice(-30).map((response) => (

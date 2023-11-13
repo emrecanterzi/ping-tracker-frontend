@@ -12,7 +12,7 @@ interface IProps {
 
 const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
   const [job, setJob] = useState<IJobFormElements>(
-    startJob?.title
+    startJob
       ? startJob
       : {
           title: "",
@@ -50,6 +50,10 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
 
   return (
     <div className={styles.container}>
+      <h5 className={styles.formTitle}>
+        {startJob ? "Edit Job" : "Create Job"}
+      </h5>
+
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <div className={styles.formGroup}>
           <label htmlFor="title" className={styles.label}>
