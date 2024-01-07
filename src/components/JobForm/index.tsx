@@ -3,6 +3,9 @@ import styles from "./style.module.scss";
 import { Check } from "@phosphor-icons/react";
 import { IJobFormElements } from "../../interfaces/IJobFormElements";
 import ReactJson, { InteractionProps } from "react-json-view";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { ITime } from "../../interfaces/ITimes";
 
 interface IProps {
   onSubmit: (job: IJobFormElements) => void;
@@ -11,6 +14,9 @@ interface IProps {
 }
 
 const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
+  const { times } = useSelector<RootState, { times: ITime[] }>(
+    (state) => state.times
+  );
   const [job, setJob] = useState<IJobFormElements>(
     startJob
       ? startJob
@@ -38,10 +44,15 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.type === "checkbox") {
-      setJob({ ...job, [e.target.name]: e.target.checked });
+      if (e.target?.checked)
+        setJob({ ...job, [e.target.name]: e.target.checked });
     } else {
       setJob({ ...job, [e.target.name]: e.target.value });
     }
+  };
+
+  const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setJob({ ...job, [e.target.name]: e.target.selectedOptions[0].value });
   };
 
   const onObjectChange = (e: InteractionProps, key: string) => {
@@ -115,28 +126,40 @@ const JobForm = ({ onSubmit, startJob, submitBtnTitle }: IProps) => {
           <label htmlFor="delay" className={styles.label}>
             Delay
           </label>
-          <input
-            type="text"
+          <select
             name="delay"
             id="delay"
-            value={job.delay}
-            onChange={onChange}
+            title="delay"
             className={styles.input}
-          />
+            onChange={onSelectChange}
+            value={job.delay}
+          >
+            {times.map((time) => (
+              <option value={time.timeId} key={time.timeId}>
+                {time.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="method" className={styles.label}>
             Method
           </label>
-          <input
-            type="text"
+          <select
             name="method"
             id="method"
-            value={job.method}
-            onChange={onChange}
+            title="method"
             className={styles.input}
-          />
+            onChange={onSelectChange}
+            value={job.method}
+          >
+            {["GET", "POST", "DELETE", "PUT", "PATCH"].map((method) => (
+              <option value={method} key={method}>
+                {method}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className={styles.formGroup}>

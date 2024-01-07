@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getResponsesByIdAction } from "./asyncActions";
-import { IResponse } from "../../interfaces/Responce";
+import { IResponse } from "../../interfaces/Response";
 
 interface IResponseSliceInitialState {
   responses: IResponse[];

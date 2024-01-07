@@ -8,7 +8,7 @@ import {
   toggleJobActiveAction,
   updateJobAction,
 } from "../../features/jobs/asyncActions";
-import { IResponse } from "../../interfaces/Responce";
+import { IResponse } from "../../interfaces/Response";
 import { IJob } from "../../interfaces/Job";
 import ResponseTimeChart from "../ResponseTimeChart";
 import JobForm from "../JobForm";
@@ -80,7 +80,7 @@ const DashboardDetailsSide = ({ job }: IProps) => {
       )}
       ref={containerRef}
     >
-      <div style={{ transition: ".3s" }} className={styles.detailsContainer}>
+      <div className={styles.detailsContainer}>
         <h4 className={styles.title}>{job.title}</h4>
         <p className={styles.url}>{job.url}</p>
 

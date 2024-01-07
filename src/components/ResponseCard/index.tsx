@@ -1,5 +1,5 @@
 import React from "react";
-import { IResponse } from "../../interfaces/Responce";
+import { IResponse } from "../../interfaces/Response";
 import styles from "./style.module.scss";
 import ReactJson from "react-json-view";
 

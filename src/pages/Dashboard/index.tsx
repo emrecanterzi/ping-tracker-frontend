@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { IJob } from "../../interfaces/Job";
 import EmptyJobHolder from "../../components/EmptyJobHolder";
+import { getTimesAction } from "../../features/times/asyncActions";
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +16,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getJobsAction());
+    dispatch(getTimesAction());
   }, [dispatch]);
 
   const [searchParams] = useSearchParams();
