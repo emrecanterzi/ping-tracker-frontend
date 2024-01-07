@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IServerResponse } from "../../interfaces/ServerResponse";
-import { IResponse } from "../../interfaces/Responce";
+import { IResponse } from "../../interfaces/Response";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:4000";
 

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { IResponse } from "../../interfaces/Responce";
+import { IResponse } from "../../interfaces/Response";
 import ResponseCard from "../ResponseCard";
 import autoAnimate from "@formkit/auto-animate";
 
