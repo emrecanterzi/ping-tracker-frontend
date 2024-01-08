@@ -18,13 +18,14 @@ interface IProps {
 const DashboardLeftBar = ({ jobs }: IProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const onJobCreateHandler = (job: IJobFormElements) => {
-    dispatch(createJobAction(job));
-  };
-
   const [, toggleCreateJobFormModal, content] = useModal(
     <JobForm onSubmit={onJobCreateHandler} submitBtnTitle="Create Job" />
   );
+
+  function onJobCreateHandler(job: IJobFormElements) {
+    dispatch(createJobAction(job));
+    toggleCreateJobFormModal();
+  }
 
   return (
     <div className={styles.container}>
